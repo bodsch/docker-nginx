@@ -1,8 +1,8 @@
 FROM bodsch/docker-alpine-base:latest
 
-MAINTAINER Bodo Schulz <bodo.schulz@coremedia.com>
+MAINTAINER Bodo Schulz <bodo@boone-schulz.de>
 
-LABEL version="1.0.1"
+LABEL version="1.0.0"
 
 ENV TERM xterm
 
