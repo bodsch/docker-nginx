@@ -1,0 +1,12 @@
+sudo: required
+
+services:
+  - docker
+
+install:
+  - docker build --tag bodsch/docker-nginx .
+  - docker run --detach --name nginx bodsch/docker-nginx
+
+script:
+  - docker ps | grep -q nginx
+
