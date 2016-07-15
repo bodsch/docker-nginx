@@ -15,7 +15,11 @@ RUN \
   apk --quiet --no-cache add \
     bash \
     nginx && \
-  mkdir /run/nginx && \
+  mkdir -p \
+    /run/nginx \
+    /var/cache/nginx/body \
+    /var/cache/nginx/proxy && \
+  chown -R nginx:nginx /var/cache/nginx && \
   rm -rf /var/cache/apk/*
 
 ADD rootfs/ /
