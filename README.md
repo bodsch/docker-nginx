@@ -8,6 +8,22 @@ Docker container with an running nginx.
 
 # Build
 
+Your can use the included Makefile.
+
+To build the Container:
+```make build```
+
+Starts the Container:
+```make run```
+
+Starts the Container with Login Shell:
+```make shell```
+
+Entering the Container:
+```make exec```
+
+Stop (but **not kill**):
+```make stop```
 
 # Docker Hub
 
