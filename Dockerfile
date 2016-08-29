@@ -1,8 +1,8 @@
-FROM bodsch/docker-alpine-base:latest
+FROM bodsch/docker-alpine-base:1609-01
 
 MAINTAINER Bodo Schulz <bodo@boone-schulz.de>
 
-LABEL version="1.0.0"
+LABEL version="1.0.1"
 
 ENV TERM xterm
 
@@ -24,11 +24,8 @@ RUN \
 
 ADD rootfs/ /
 
-## VOLUME  ["/etc/nginx" ]
-
 WORKDIR '/etc/nginx'
 
-# Initialize and run Supervisor
-ENTRYPOINT [ "/opt/startup.sh" ]
+CMD [ "/opt/startup.sh" ]
 
 # ---------------------------------------------------------------------------------------
