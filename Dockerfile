@@ -1,12 +1,12 @@
-FROM bodsch/docker-alpine-base:1609-01
+FROM bodsch/docker-alpine-base:1610-01
 
 MAINTAINER Bodo Schulz <bodo@boone-schulz.de>
 
-LABEL version="1.1.0"
+LABEL version="1.1.1"
 
 ENV TERM xterm
 
-EXPOSE 80
+EXPOSE 80 443
 
 # ---------------------------------------------------------------------------------------
 
@@ -14,18 +14,21 @@ RUN \
   apk --quiet --no-cache update && \
   apk --quiet --no-cache upgrade && \
   apk --quiet --no-cache add \
-    bash \
     nginx && \
   mkdir -p \
     /run/nginx \
     /var/cache/nginx/body \
     /var/cache/nginx/proxy && \
   chown -R nginx:nginx /var/cache/nginx && \
-  rm -rf /var/cache/apk/*
+  rm -rf \
+    /tmp/* \
+    /var/cache/apk/*
 
-ADD rootfs/ /
+COPY rootfs/ /
 
-WORKDIR '/etc/nginx'
+VOLUME [ "/etc/nginx" ]
+
+WORKDIR "/etc/nginx"
 
 CMD [ "/opt/startup.sh" ]
 

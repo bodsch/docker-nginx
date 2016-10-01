@@ -1,34 +1,47 @@
-TYPE := nginx
-IMAGE_NAME := ${USER}-docker-${TYPE}
+
+CONTAINER  := nginx
+IMAGE_NAME := docker-nginx
+
 
 build:
-	docker build --rm --tag=$(IMAGE_NAME) .
+	docker \
+		build \
+		--rm --tag=$(IMAGE_NAME) .
+	@echo Image tag: ${IMAGE_NAME}
 
 run:
-	docker run \
+	docker \
+		run \
 		--detach \
 		--interactive \
 		--tty \
-		--hostname=${USER}-nginx \
-		--name=${USER}-${TYPE} \
+		--hostname=${CONTAINER} \
+		--name=${CONTAINER} \
 		$(IMAGE_NAME)
 
 shell:
-	docker run \
+	docker \
+		run \
 		--rm \
 		--interactive \
 		--tty \
-		--hostname=${USER}-nginx \
-		--name=${USER}-${TYPE} \
+		--hostname=${CONTAINER} \
+		--name=${CONTAINER} \
 		$(IMAGE_NAME)
 
 exec:
-	docker exec \
+	docker \
+		exec \
 		--interactive \
 		--tty \
-		${USER}-${TYPE} \
-		/bin/sh
+		${CONTAINER} \
+		/bin/bash
 
 stop:
-	docker kill \
-		${USER}-${TYPE}
+	docker \
+		kill ${CONTAINER}
+
+history:
+	docker \
+		history ${IMAGE_NAME}
+
