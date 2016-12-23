@@ -1,3 +1,4 @@
+
 FROM bodsch/docker-alpine-base:1612-01
 
 MAINTAINER Bodo Schulz <bodo@boone-schulz.de>
@@ -25,8 +26,6 @@ RUN \
     /var/cache/apk/*
 
 COPY rootfs/ /
-
-VOLUME [ "/etc/nginx" ]
 
 WORKDIR "/etc/nginx"
 
