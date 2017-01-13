@@ -1,8 +1,9 @@
+
 FROM bodsch/docker-alpine-base:1701-02
 
 MAINTAINER Bodo Schulz <bodo@boone-schulz.de>
 
-LABEL version="1.1.4"
+LABEL version="1.2.0"
 
 ENV TERM xterm
 
@@ -32,9 +33,8 @@ RUN \
 COPY rootfs/ /
 
 VOLUME [ "/etc/nginx" ]
-
 WORKDIR "/etc/nginx"
 
-CMD /opt/startup.sh
+CMD [ "/usr/sbin/nginx" ]
 
 # ---------------------------------------------------------------------------------------
