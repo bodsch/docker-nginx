@@ -1,8 +1,8 @@
-FROM bodsch/docker-alpine-base:1612-01
+FROM bodsch/docker-alpine-base:1701-02
 
 MAINTAINER Bodo Schulz <bodo@boone-schulz.de>
 
-LABEL version="1.1.3"
+LABEL version="1.1.4"
 
 ENV TERM xterm
 
@@ -20,6 +20,11 @@ RUN \
     /var/cache/nginx/body \
     /var/cache/nginx/proxy && \
   chown -R nginx:nginx /var/cache/nginx && \
+  apk del --purge \
+    bash \
+    nano \
+    tree \
+    curl && \
   rm -rf \
     /tmp/* \
     /var/cache/apk/*
