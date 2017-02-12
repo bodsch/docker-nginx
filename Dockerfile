@@ -32,6 +32,7 @@ RUN \
 
 COPY rootfs/ /
 
+
 VOLUME [ "/etc/nginx" ]
 WORKDIR "/etc/nginx"
 
