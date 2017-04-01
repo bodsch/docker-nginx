@@ -3,7 +3,7 @@ FROM alpine:latest
 
 MAINTAINER Bodo Schulz <bodo@boone-schulz.de>
 
-LABEL version="1702-02"
+LABEL version="1704-01"
 
 ENV \
   ALPINE_MIRROR="dl-cdn.alpinelinux.org" \
@@ -17,9 +17,9 @@ EXPOSE 80 443
 RUN \
   echo "http://${ALPINE_MIRROR}/alpine/${ALPINE_VERSION}/main"       > /etc/apk/repositories && \
   echo "http://${ALPINE_MIRROR}/alpine/${ALPINE_VERSION}/community" >> /etc/apk/repositories && \
-  apk --no-cache update && \
-  apk --no-cache upgrade && \
-  apk --no-cache add \
+  apk --quiet --no-cache update && \
+  apk --quiet --no-cache upgrade && \
+  apk --quiet --no-cache add \
     nginx && \
   mkdir -p \
     /run/nginx \
@@ -31,7 +31,6 @@ RUN \
     /var/cache/apk/*
 
 COPY rootfs/ /
-
 
 VOLUME [ "/etc/nginx" ]
 WORKDIR "/etc/nginx"
