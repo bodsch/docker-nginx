@@ -5,9 +5,9 @@ Docker container with an running nginx.
 
 # Status
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/bodsch/docker-nginx.svg?branch=1704-01)][hub]
-[![Image Size](https://images.microbadger.com/badges/image/bodsch/docker-nginx.svg?branch=1704-01)][microbadger]
-[![Build Status](https://travis-ci.org/bodsch/docker-nginx.svg?branch=1704-01)][travis]
+[![Docker Pulls](https://img.shields.io/docker/pulls/bodsch/docker-nginx.svg?branch=1705-01)][hub]
+[![Image Size](https://images.microbadger.com/badges/image/bodsch/docker-nginx.svg?branch=1705-01)][microbadger]
+[![Build Status](https://travis-ci.org/bodsch/docker-nginx.svg?branch=1705-01)][travis]
 
 [hub]: https://hub.docker.com/r/bodsch/docker-nginx/
 [microbadger]: https://microbadger.com/images/bodsch/docker-nginx
