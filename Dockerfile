@@ -7,13 +7,13 @@ ENV \
   ALPINE_MIRROR="mirror1.hs-esslingen.de/pub/Mirrors" \
   ALPINE_VERSION="v3.6" \
   TERM=xterm \
-  BUILD_DATE="2017-05-01" \
+  BUILD_DATE="2017-07-08" \
   NGINX_VERSION="1.12.0-r1"
 
 EXPOSE 80 443
 
 LABEL \
-  version="1705-04.1" \
+  version="1707-27.1" \
   org.label-schema.build-date=${BUILD_DATE} \
   org.label-schema.name="NginX Docker Image" \
   org.label-schema.description="Inofficial NginX Docker Image" \
@@ -30,9 +30,9 @@ LABEL \
 RUN \
   echo "http://${ALPINE_MIRROR}/alpine/${ALPINE_VERSION}/main"       > /etc/apk/repositories && \
   echo "http://${ALPINE_MIRROR}/alpine/${ALPINE_VERSION}/community" >> /etc/apk/repositories && \
-  apk --quiet --no-cache update && \
-  apk --quiet --no-cache upgrade && \
-  apk --quiet --no-cache add \
+  apk --no-cache update && \
+  apk --no-cache upgrade && \
+  apk --no-cache add \
     nginx && \
   mkdir -p \
     /run/nginx \
