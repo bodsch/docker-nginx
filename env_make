@@ -1,8 +1,11 @@
 PORTS = \
-  --publish 80:80
+  --publish 80:80 \
+  --publish 443:443
 
 VOLUMES = \
-  --volume /var/log/docker:/var/log
+  --volume /var/log/docker:/var/log \
+  --volume ${PWD}/secure:/etc/nginx/secure/ \
+  --volume ${PWD}/examples:/etc/nginx/external/
 
 # ENV = \
 #  --env

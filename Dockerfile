@@ -33,8 +33,12 @@ RUN \
   apk --no-cache update && \
   apk --no-cache upgrade && \
   apk --no-cache add \
+    openssl \
     nginx && \
   mkdir -p \
+    /etc/nginx/secure \
+    /etc/nginx/external \
+    /var/log/nginx/ \
     /run/nginx \
     /var/cache/nginx/body \
     /var/cache/nginx/proxy && \
@@ -47,6 +51,8 @@ COPY rootfs/ /
 
 VOLUME [ "/etc/nginx" ]
 WORKDIR "/etc/nginx"
+
+ENTRYPOINT [ "/init/run.sh" ]
 
 CMD [ "/usr/sbin/nginx" ]
 
