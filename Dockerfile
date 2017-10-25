@@ -7,8 +7,8 @@ ENV \
   ALPINE_MIRROR="mirror1.hs-esslingen.de/pub/Mirrors" \
   ALPINE_VERSION="v3.6" \
   TERM=xterm \
-  BUILD_DATE="2017-10-05" \
-  NGINX_VERSION="1.12.1-r0"
+  BUILD_DATE="2017-10-25" \
+  NGINX_VERSION="1.12.2"
 
 EXPOSE 80 443
 
