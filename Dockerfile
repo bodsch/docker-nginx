@@ -35,7 +35,7 @@ RUN \
   apk --no-cache update && \
   apk --no-cache upgrade && \
   apk --no-cache add \
-    nginx && \
+    curl nginx && \
   mkdir -p \
     /etc/nginx/secure \
     /etc/nginx/external \
