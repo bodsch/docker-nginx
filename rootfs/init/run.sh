@@ -1,37 +1,40 @@
 #!/bin/sh
 
-DH_SIZE=${DH_SIZE:-2048}
-DH_FILE="/etc/nginx/secure/dh.pem"
+create_certificate() {
 
-CERT_C="DE"
-CERT_ST="XXXX"
-CERT_L="XXXX"
-CERT_O="self signed"
-CERT_CN=${HOSTNAME}
+  DH_SIZE=${DH_SIZE:-2048}
+  DH_FILE="/etc/nginx/secure/dh.pem"
 
-HOSTNAME=${HOSTNAME-localhost}
+  CERT_C="DE"
+  CERT_ST="XXXX"
+  CERT_L="XXXX"
+  CERT_O="self signed"
+  CERT_CN=${HOSTNAME}
 
-if [ ! -e "${DH_FILE}" ]
-then
-  echo " [i] generating ${DH_FILE} with size: ${DH_SIZE}"
-  openssl dhparam -out "${DH_FILE}" ${DH_SIZE}
-fi
+  HOSTNAME=${HOSTNAME-localhost}
 
-if [ ! -e "/etc/nginx/secure/cert.pem" ] || [ ! -e "/etc/nginx/secure/key.pem" ]
-then
-  echo " [i] generating self signed cert"
-  openssl \
-    req \
-    -x509 \
-    -newkey \
-    rsa:4086 \
-    -subj "/C=${CERT_C}/ST=${CERT_ST}/L=${CERT_L}/O=${CERT_O}/CN=${CERT_CN}" \
-    -keyout "/etc/nginx/secure/key.pem" \
-    -out "/etc/nginx/secure/cert.pem" \
-    -days 3650 \
-    -nodes \
-    -sha256
-fi
+  if [ ! -e "${DH_FILE}" ]
+  then
+    echo " [i] generating ${DH_FILE} with size: ${DH_SIZE}"
+    openssl dhparam -out "${DH_FILE}" ${DH_SIZE}
+  fi
+
+  if [ ! -e "/etc/nginx/secure/cert.pem" ] || [ ! -e "/etc/nginx/secure/key.pem" ]
+  then
+    echo " [i] generating self signed cert"
+    openssl \
+      req \
+      -x509 \
+      -newkey \
+      rsa:4086 \
+      -subj "/C=${CERT_C}/ST=${CERT_ST}/L=${CERT_L}/O=${CERT_O}/CN=${CERT_CN}" \
+      -keyout "/etc/nginx/secure/key.pem" \
+      -out "/etc/nginx/secure/cert.pem" \
+      -days 3650 \
+      -nodes \
+      -sha256
+  fi
+}
 
 [ -d /var/log/nginx ] || mkdir -vp /var/log/nginx
 

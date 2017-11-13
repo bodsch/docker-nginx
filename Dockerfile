@@ -7,13 +7,13 @@ ENV \
   ALPINE_MIRROR="mirror1.hs-esslingen.de/pub/Mirrors" \
   ALPINE_VERSION="v3.6" \
   TERM=xterm \
-  BUILD_DATE="2017-10-25" \
+  BUILD_DATE="2017-11-13" \
   NGINX_VERSION="1.12.2"
 
 EXPOSE 80 443
 
 LABEL \
-  version="1710" \
+  version="1711" \
   org.label-schema.build-date=${BUILD_DATE} \
   org.label-schema.name="NginX Docker Image" \
   org.label-schema.description="Inofficial NginX Docker Image" \
@@ -27,13 +27,14 @@ LABEL \
 
 # ---------------------------------------------------------------------------------------
 
+#RUN \
+#  echo "http://${ALPINE_MIRROR}/alpine/${ALPINE_VERSION}/main"       > /etc/apk/repositories && \
+#  echo "http://${ALPINE_MIRROR}/alpine/${ALPINE_VERSION}/community" >> /etc/apk/repositories && \
+
 RUN \
-  echo "http://${ALPINE_MIRROR}/alpine/${ALPINE_VERSION}/main"       > /etc/apk/repositories && \
-  echo "http://${ALPINE_MIRROR}/alpine/${ALPINE_VERSION}/community" >> /etc/apk/repositories && \
   apk --no-cache update && \
   apk --no-cache upgrade && \
   apk --no-cache add \
-    openssl \
     nginx && \
   mkdir -p \
     /etc/nginx/secure \
@@ -51,6 +52,13 @@ COPY rootfs/ /
 
 VOLUME [ "/etc/nginx" ]
 WORKDIR "/etc/nginx"
+
+HEALTHCHECK \
+  --interval=5s \
+  --timeout=2s \
+  --retries=12 \
+  CMD curl --silent --fail http://localhost/health || exit 1
+
 
 ENTRYPOINT [ "/init/run.sh" ]
 
