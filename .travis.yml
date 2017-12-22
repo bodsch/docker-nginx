@@ -9,4 +9,3 @@ install:
 
 script:
   - docker ps | grep -q nginx
-
