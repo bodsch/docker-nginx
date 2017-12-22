@@ -27,7 +27,7 @@ LABEL \
 RUN \
   apk update --quiet --no-cache && \
   apk upgrade --quiet --no-cache && \
-  apk add -quiet --no-cache \
+  apk add --quiet --no-cache \
     curl nginx && \
   mkdir -p \
     /etc/nginx/secure \
