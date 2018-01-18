@@ -18,4 +18,4 @@ after_success:
       --request POST \
       --header "Content-Type: application/json"  \
       --data '{"source_type":"Branch","source_name":"master"}' \
-      https://registry.hub.docker.com/u/bodsch/docker-icinga2/trigger/${DOCKER_HUB_TOKEN}/
+      https://registry.hub.docker.com/u/bodsch/docker-nginx/trigger/${DOCKER_HUB_TOKEN}/
