@@ -3,14 +3,14 @@ FROM alpine:3.7
 
 ENV \
   TERM=xterm \
-  BUILD_DATE="2018-01-18" \
+  BUILD_DATE="2018-05-04" \
   NGINX_VERSION="1.12.2" \
   TZ='Europe/Berlin'
 
 EXPOSE 80 443
 
 LABEL \
-  version="1801" \
+  version="1805" \
   maintainer="Bodo Schulz <bodo@boone-schulz.de>" \
   org.label-schema.build-date=${BUILD_DATE} \
   org.label-schema.name="NginX Docker Image" \
