@@ -1,16 +1,18 @@
 
-FROM alpine:3.7
-
-ENV \
-  TERM=xterm \
-  BUILD_DATE="2018-05-04" \
-  NGINX_VERSION="1.12.2" \
-  TZ='Europe/Berlin'
+FROM alpine:latest
 
 EXPOSE 80 443
 
+ARG BUILD_DATE
+ARG BUILD_VERSION
+ARG NGINX_VERSION
+
+ENV \
+  TERM=xterm \
+  TZ='Europe/Berlin'
+
 LABEL \
-  version="1805" \
+  version=${BUILD_VERSION} \
   maintainer="Bodo Schulz <bodo@boone-schulz.de>" \
   org.label-schema.build-date=${BUILD_DATE} \
   org.label-schema.name="NginX Docker Image" \
