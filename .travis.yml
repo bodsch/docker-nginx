@@ -20,8 +20,8 @@ jobs:
     - make build
     - make start
     - docker ps | grep -q nginx
-  - stage: publish
+  - stage: release
     script:
     - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-    - make publish
+    - make release
     - docker logout
