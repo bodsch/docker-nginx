@@ -1,5 +1,5 @@
 
-FROM alpine:latest
+FROM alpine:3.8
 
 EXPOSE 80 443
 

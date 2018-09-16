@@ -9,17 +9,7 @@ INSTANCE = default
 
 BUILD_DATE    := $(shell date +%Y-%m-%d)
 BUILD_VERSION := $(shell date +%y%m)
-NGINX_VERSION ?= $(shell curl \
-  --silent \
-  --location \
-  --retry 3 \
-  http://dl-cdn.alpinelinux.org/alpine/latest-stable/main/x86_64/APKINDEX.tar.gz | \
-  gunzip | \
-  strings | \
-  grep -A1 "P:nginx" | \
-  tail -n1 | \
-  cut -d ':' -f2 | \
-  cut -d '-' -f1)
+NGINX_VERSION ?= $(shell ./latest_release.sh)
 
 
 .PHONY: build push shell run start stop rm release
