@@ -26,7 +26,7 @@ jobs:
     script:
       - make
       - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-      - docker tag  ${USER}/docker-nginx:latest ${DOCKER_USERNAME}/docker-nginx:latest
+      - docker tag  ${USER}/nginx:latest ${DOCKER_USERNAME}/docker-nginx:latest
       - docker push ${DOCKER_USERNAME}/docker-nginx:latest
       - docker logout
 
@@ -34,6 +34,6 @@ jobs:
     script:
       - make
       - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-      - docker tag  ${USER}/docker-nginx:latest ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION}
+      - docker tag  ${USER}/nginx:latest ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION}
       - docker push ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION}
       - docker logout
