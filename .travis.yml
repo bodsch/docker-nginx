@@ -22,11 +22,18 @@ jobs:
     - make test
     - docker ps | grep -q nginx
 
-  - stage: build alpine and push docker image
+  - stage: push latest docker image
     script:
-      - travis_wait 30 make
+      - make
       - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-      - docker tag  ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION} ${DOCKER_USERNAME}/docker-nginx:latest
-      - docker push ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION}
+      - docker tag  ${USER}/docker-nginx:latest ${DOCKER_USERNAME}/docker-nginx:latest
       - docker push ${DOCKER_USERNAME}/docker-nginx:latest
+      - docker logout
+
+  - stage: pust version docker image
+    script:
+      - make
+      - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+      - docker tag  ${USER}/docker-nginx:latest ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION}
+      - docker push ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION}
       - docker logout
