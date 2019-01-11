@@ -7,21 +7,26 @@ env:
   - BUILD_DATE=$(date +"%Y-%m-%d")
   - BUILD_VERSION=$(date +"%y%m")
   - secure: Y6VuqPJjl+e10SSVj0QWOEhihaMmIDeizJfxT79ly9WGd83OwRIBarrWpfzBnwjsqKGyHroWQtGSdxppqY8uGn182QTKDm1CyxJ1a9w3CW4gf6fOTMv0jjiGPkQPeEogDnThkM8RD2DUeuNoTxLB/CRayaUBRR7fduV8c1qdfJO5Zxh77i2GyM0e1C2ck+34JwNoxto/ggR7FPa6JI3vDyKgNygCXdjge60TEYG03upTHuc06TJRe2GK0nEIzVsaqDshUo0oo3ls0kDxcDrMrT+QenJ3pUz6sttJBhYimDBBjHc/NRqwe2ccjERcEtS7vUJUL5OCyCAsnjJikN8tDl6kl2Hv9CfjjSI8sLS9nrmXn8ZOAKDnOfV3nkI4knSTT+GG+KiOq04lgsi5uAvBIVBlZFKmKuUvtLsvnsFBlIjvRG69iPs34EzajEdXj028xKqhPKCRaLuik2Ws1FnnVbh94zQ7UUJQXKHsbcYo5ffFTkLkEMx9DRLe1NdtxxJj8kJ6kwMi9W9WMkvMxWugxd4ya/HTISY+VER8VkqMQVTENKSpPCOjpPU/8Wx37cFELWv2Zfyey/IEdZauZLcNvdKew9MHqsqUCK2u0FCEkwwP55H8Hp97NN/fqh2zL5f5g052uOEZi+TaNCjPcp3qLz/SSc59KbOQWSdENCyx8wA=
-  - NGINX_VERSION=$(./latest_release.sh)
+  - NGINX_VERSION=$(./hooks/latest_release.sh)
 
 
 jobs:
   include:
   - stage: build
     script:
-    - make build
+    - make
   - stage: run
     script:
-    - make build
+    - make
     - make start
+    - make test
     - docker ps | grep -q nginx
-  - stage: release
+
+  - stage: build alpine and push docker image
     script:
-    - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-    - make release
-    - docker logout
+      - travis_wait 30 make
+      - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+      - docker tag  ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION} ${DOCKER_USERNAME}/docker-nginx:latest
+      - docker push ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION}
+      - docker push ${DOCKER_USERNAME}/docker-nginx:latest
+      - docker logout
