@@ -33,6 +33,9 @@ stop:
 clean:
 	@hooks/clean
 
+compose-file:
+	@hooks/compose-file
+
 linter:
 	@tests/linter.sh
 

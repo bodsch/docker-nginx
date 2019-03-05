@@ -15,12 +15,13 @@ jobs:
   - stage: build
     script:
     - make
+
   - stage: run
     script:
     - make
     - make start
     - make test
-    - docker ps | grep -q nginx
+    - make stop
 
   - stage: push latest docker image
     script:
