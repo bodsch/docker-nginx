@@ -8,33 +8,29 @@ env:
   - BUILD_VERSION=$(date +"%y%m")
   - secure: Y6VuqPJjl+e10SSVj0QWOEhihaMmIDeizJfxT79ly9WGd83OwRIBarrWpfzBnwjsqKGyHroWQtGSdxppqY8uGn182QTKDm1CyxJ1a9w3CW4gf6fOTMv0jjiGPkQPeEogDnThkM8RD2DUeuNoTxLB/CRayaUBRR7fduV8c1qdfJO5Zxh77i2GyM0e1C2ck+34JwNoxto/ggR7FPa6JI3vDyKgNygCXdjge60TEYG03upTHuc06TJRe2GK0nEIzVsaqDshUo0oo3ls0kDxcDrMrT+QenJ3pUz6sttJBhYimDBBjHc/NRqwe2ccjERcEtS7vUJUL5OCyCAsnjJikN8tDl6kl2Hv9CfjjSI8sLS9nrmXn8ZOAKDnOfV3nkI4knSTT+GG+KiOq04lgsi5uAvBIVBlZFKmKuUvtLsvnsFBlIjvRG69iPs34EzajEdXj028xKqhPKCRaLuik2Ws1FnnVbh94zQ7UUJQXKHsbcYo5ffFTkLkEMx9DRLe1NdtxxJj8kJ6kwMi9W9WMkvMxWugxd4ya/HTISY+VER8VkqMQVTENKSpPCOjpPU/8Wx37cFELWv2Zfyey/IEdZauZLcNvdKew9MHqsqUCK2u0FCEkwwP55H8Hp97NN/fqh2zL5f5g052uOEZi+TaNCjPcp3qLz/SSc59KbOQWSdENCyx8wA=
   - NGINX_VERSION=$(./hooks/latest_release.sh)
-
-
+  - secure: jRnzRz2kLAz/1zb3h9pX3CJ75RT3061jA3PaxRVrKFZaPEh5mSnzVBzj1FxHaoWKq8sGEgS9c44uWVXF1R3hhtXQ0nC2qOJum+N6fSOm3KhWASiq0QvwlCgZHR7jKID+MSkdhcgwzoKCuupu2Sk+SA/z8K3zcAbVaucDq9DDMTZqNXcXgEPcNEzf5F5fjV4FDHtnHWPCI5SkuT1y3xgkA5q3GqxFbFEKSO+c5JoUsHkKm6dTxZpL5IvtCd6QHr+eMg0BBH25weXn5bDM3F1n9wWJ469HgHVc4Ygj8zT4oACIBvOdxSpDTDA7VD9AYwiiwb1wYdEbJ+VsTD0nBm7TWVPHYn9GNRmAy5EaY2KgsZ/9W8NUpmXwkGA5XEAxdO4iPL7U5VrIZr8ZxKSDlXKX450KYn5Ic0gRSa0A7mJEkfm3YyPsueQMU4+5KrUsxHBhZV181tlauFjMcIWdSoRKfEZgAo3avnQkDAPVmgsvhnyJoWCLaYceJK1RFG5dH5fvjr9odEaPRqZ8fqjdsJvDb/KOubON8G5/beq3ZmNJvwkcdY0L+9Zq2DQuPVQC0W0TXGrAqR42E2ALVunnsvDOiJ1J9tON4prJXCHvrNUYuERFcZA84yeWxKPa28Xv5uh4NNl9Neh605LalPKavmGGGPrYmJhWAe75jaqRPJUSEKY=
 jobs:
   include:
   - stage: build
     script:
     - make
-
   - stage: run
     script:
     - make
     - make start
     - make test
     - make stop
-
   - stage: push latest docker image
     script:
-      - make
-      - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-      - docker tag  ${USER}/nginx:latest ${DOCKER_USERNAME}/docker-nginx:latest
-      - docker push ${DOCKER_USERNAME}/docker-nginx:latest
-      - docker logout
-
+    - make
+    - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+    - docker tag  ${USER}/nginx:latest ${DOCKER_USERNAME}/docker-nginx:latest
+    - docker push ${DOCKER_USERNAME}/docker-nginx:latest
+    - docker logout
   - stage: pust version docker image
     script:
-      - make
-      - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-      - docker tag  ${USER}/nginx:latest ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION}
-      - docker push ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION}
-      - docker logout
+    - make
+    - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+    - docker tag  ${USER}/nginx:latest ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION}
+    - docker push ${DOCKER_USERNAME}/docker-nginx:${NGINX_VERSION}
+    - docker logout
