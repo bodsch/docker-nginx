@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:3.10
 
 EXPOSE 80 443
 
@@ -55,10 +55,10 @@ LABEL \
   maintainer="Bodo Schulz <bodo@boone-schulz.de>" \
   org.label-schema.build-date=${BUILD_DATE} \
   org.label-schema.name="NginX Docker Image" \
-  org.label-schema.vcs-ref=${VCS_REF} \
   org.label-schema.description="Inofficial NginX Docker Image" \
   org.label-schema.url="https://nginx.org" \
   org.label-schema.vcs-url="https://github.com/bodsch/docker-nginx" \
+  org.label-schema.vcs-ref=${VCS_REF} \
   org.label-schema.vendor="Bodo Schulz" \
   org.label-schema.version=${NGINX_VERSION} \
   org.label-schema.schema-version="1.0" \

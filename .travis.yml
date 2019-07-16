@@ -14,12 +14,15 @@ jobs:
   - stage: build
     script:
     - make
-  - stage: run
+  - stage: build and test
     script:
-    - make
-    - make start
+    - make compose-file
+    - docker-compose build
+    - docker-compose up -d
+    - sleep 2m
     - make test
-    - make stop
+    - docker-compose kill
+    - docker-compose down
   - stage: push latest docker image
     script:
     - make

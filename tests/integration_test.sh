@@ -1,17 +1,5 @@
 #!/bin/bash
 
-#pushd $PWD
-#
-#cd $(dirname $(readlink -f "$0"))
-#
-#if [[ -f ../.env ]]
-#then
-#  . ../.env
-#else
-#  echo "run 'make compose-file' first"
-#  exit 1
-#fi
-
 wait_for_service() {
 
   echo -e "\nwait for the nginx service"
@@ -36,12 +24,18 @@ wait_for_service() {
     echo "Could not connect to the nginx service"
     exit 1
   fi
+  echo ""
 }
 
 
 send_request() {
 
-  curl -I     http://localhost/
+  echo "send requests"
+  echo "- health check"
+  curl -I http://localhost/health
+
+  echo "- index.html"
+  curl -I http://localhost/index.html
 }
 
 
